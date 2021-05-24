@@ -1,14 +1,18 @@
 from datetime import datetime
+import os
 import ssl
 from flask import Flask
 from flask.globals import request
 from flask.templating import render_template
 from pymongo import MongoClient
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def create_app():
     app = Flask(__name__)
-    client = MongoClient('mongodb+srv://yuval:yyuuvvaall@microblog-application.tixpn.mongodb.net/test', ssl_cert_reqs=ssl.CERT_NONE)
+    client = MongoClient(os.environ.get('MONGODB_URI'), ssl_cert_reqs=ssl.CERT_NONE)
     app.db = client.microblog
 
 
